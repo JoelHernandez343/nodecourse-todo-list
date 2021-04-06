@@ -1,16 +1,16 @@
 require('colors');
 
-const { showMenu, pause } = require('./modules/messages');
+const { inquireMenu, pause } = require('./modules/inquirer');
 
 const app = async () => {
   console.clear();
 
-  let opt = '';
+  let option = '';
   do {
-    opt = await showMenu();
-  } while (opt !== '0');
-
-  pause();
+    ({ option } = await inquireMenu());
+    console.log(option);
+    await pause();
+  } while (option !== 0);
 };
 
 module.exports = app;
