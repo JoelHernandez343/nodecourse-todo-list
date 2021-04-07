@@ -50,7 +50,8 @@ const switchOpt = async option => {
 
     case 6:
       const id = await getTaskToDelete(tasks.list());
-      const ok = await confirm('Are you sure?');
+      const ok = id === 0 ? false : await confirm('Are you sure?');
+
       if (ok) {
         tasks.deleteTask(id);
         console.log('Task deleted!');
