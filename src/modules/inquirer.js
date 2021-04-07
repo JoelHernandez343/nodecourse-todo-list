@@ -29,7 +29,7 @@ const questions = [
       },
       {
         value: 6,
-        name: `${'6.'.bold.green} Delete task`,
+        name: `${'6.'.bold.green} Delete tasks`,
       },
       {
         value: 0,
@@ -73,25 +73,21 @@ const ask = async message => {
   return result;
 };
 
-const getTaskToDelete = async tasks => {
+const getTasksToDelete = async tasks => {
   const choices = tasks.map(({ id, description }, i) => ({
     value: id,
     name: `${`${i + 1}.`.green} ${description}`,
+    checked: false,
   }));
 
-  choices.unshift({
-    value: 0,
-    name: `${'0.'.green} Cancel`,
-  });
-
-  const { id } = await inquirer.prompt({
-    type: 'list',
-    name: 'id',
-    message: 'Delete a task:',
+  const { ids } = await inquirer.prompt({
+    type: 'checkbox',
+    name: 'ids',
+    message: 'Mark tasks to delete them. Leave blank to cancel:',
     choices,
   });
 
-  return id;
+  return ids;
 };
 
 const getTasksToggle = async tasks => {
@@ -122,7 +118,7 @@ const confirm = async message => {
 };
 
 module.exports = {
-  getTaskToDelete,
+  getTasksToDelete,
   getTasksToggle,
   inquireMenu,
   confirm,

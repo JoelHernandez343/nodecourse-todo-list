@@ -2,7 +2,7 @@ require('colors');
 
 const Tasks = require('./models/tasks');
 const {
-  getTaskToDelete,
+  getTasksToDelete,
   getTasksToggle,
   inquireMenu,
   confirm,
@@ -51,12 +51,12 @@ const switchOpt = async option => {
       break;
 
     case 6:
-      const id = await getTaskToDelete(tasks.list());
-      const ok = id === 0 ? false : await confirm('Are you sure?');
+      const ids = await getTasksToDelete(tasks.list());
+      const ok = ids.length === 0 ? false : await confirm('Are you sure?');
 
       if (ok) {
-        tasks.deleteTask(id);
-        console.log('Task deleted!');
+        tasks.deleteTasks(ids);
+        console.log('Tasks deleted!');
       }
       break;
   }

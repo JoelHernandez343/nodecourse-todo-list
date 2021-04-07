@@ -14,10 +14,12 @@ class Tasks {
     this.save();
   }
 
-  deleteTask(id) {
-    if (this._list[id]) {
-      delete this._list[id];
-    }
+  deleteTasks(ids = []) {
+    ids.forEach(id => {
+      if (this._list[id]) {
+        delete this._list[id];
+      }
+    });
 
     this.save();
   }
