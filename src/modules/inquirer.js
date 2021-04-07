@@ -94,6 +94,23 @@ const getTaskToDelete = async tasks => {
   return id;
 };
 
+const getTasksToggle = async tasks => {
+  const choices = tasks.map(({ id, description, date }, i) => ({
+    value: id,
+    name: `${`${i + 1}.`.green} ${description}`,
+    checked: !!date,
+  }));
+
+  const { ids } = await inquirer.prompt({
+    type: 'checkbox',
+    name: 'ids',
+    message: 'Mark tasks as completed or unmark them to set pending:',
+    choices,
+  });
+
+  return ids;
+};
+
 const confirm = async message => {
   const { ok } = await inquirer.prompt({
     type: 'confirm',
@@ -106,6 +123,7 @@ const confirm = async message => {
 
 module.exports = {
   getTaskToDelete,
+  getTasksToggle,
   inquireMenu,
   confirm,
   pause,

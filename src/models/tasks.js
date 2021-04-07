@@ -22,6 +22,12 @@ class Tasks {
     this.save();
   }
 
+  toggleTasks(ids = []) {
+    this.list().forEach(task => task.toggle(ids.includes(task.id)));
+
+    this.save();
+  }
+
   list(filter = 'all') {
     return Object.values(this._list).filter(task => {
       if (filter === 'all') {

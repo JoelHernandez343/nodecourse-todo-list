@@ -10,9 +10,19 @@ class Task {
   }
 
   pretty(index, showMark = true) {
-    return `  ${`${index}.`.green} ${this.description} ${
-      !showMark ? '' : this.date ? ':: ✅' : ':: ❌'
-    }`;
+    const i = `${index}.`.green;
+    const mark = !showMark ? '' : ' :: ' + (this.date ? '✅' : '❌');
+    const date = this.date ? this.date : '';
+
+    return `  ${i} ${this.description} ${mark} ${date}`;
+  }
+
+  toggle(completed) {
+    if (!!this.date === completed) {
+      return;
+    }
+
+    this.date = completed ? new Date().toISOString() : null;
   }
 }
 

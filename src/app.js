@@ -3,6 +3,7 @@ require('colors');
 const Tasks = require('./models/tasks');
 const {
   getTaskToDelete,
+  getTasksToggle,
   inquireMenu,
   confirm,
   pause,
@@ -46,6 +47,7 @@ const switchOpt = async option => {
       break;
 
     case 5:
+      tasks.toggleTasks(await getTasksToggle(tasks.list()));
       break;
 
     case 6:
